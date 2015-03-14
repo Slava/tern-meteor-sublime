@@ -1,5 +1,7 @@
 # Tern.js Meteor for Sublime Text 3
 
+![demo.gif](/img/demo.gif)
+
 This is a repository with a package for the Sublime Text 3 editor. By running a
 customized version of Tern.js, this package provides an autocompletion option
 for developing Meteor applications in JavaScript.

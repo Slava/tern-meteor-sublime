@@ -114,7 +114,9 @@ def project_dir(fname):
     parent = os.path.dirname(cur[:-1])
     if not parent:
       break
-    if os.path.isfile(os.path.join(cur, ".tern-project")):
+    #if os.path.isfile(os.path.join(cur, ".tern-project")):
+    # Slava: the project dir is found by looking at .meteor folderub
+    if os.path.isdir(os.path.join(cur, ".meteor")):
       return cur
     cur = parent
   return dir

@@ -546,7 +546,7 @@ plugin_dir = os.path.abspath(os.path.dirname(__file__))
 def plugin_loaded():
   global arghints_enabled, arghints_type, tern_command, tern_arguments
   settings = sublime.load_settings("Preferences.sublime-settings")
-  arghints_enabled = settings.get("tern_argument_hints", False)
+  arghints_enabled = settings.get("tern_argument_hints", True) # Slava: show hints by default
   if arghints_enabled:
     if "show_popup" in dir(sublime.View):
       arghints_type = "tooltip"
@@ -571,7 +571,11 @@ def plugin_loaded():
             msg += " Error message was:\n\n" + e.output
           sublime.error_message(msg)
           return
-    tern_command = ["node",  os.path.join(plugin_dir, "node_modules/tern/bin/tern"), "--no-port-file"]
+    # Slava: load the node binary shipped with this package
+    import platform
+    os_mark = platform.system().lower()
+    node_path = os.path.join(plugin_dir, "dev_bundle", os_mark, "node") # Slava: use node bundled with the plugin
+    tern_command = [node_path,  os.path.join(plugin_dir, "node_modules/tern/bin/tern"), "--no-port-file"]
 
 def cleanup():
   for f in files.values():

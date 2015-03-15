@@ -575,8 +575,11 @@ def plugin_loaded():
           return
     # Slava: load the node binary shipped with this package
     import platform
+    import stat
     os_mark = platform.system().lower()
     node_path = os.path.join(plugin_dir, "dev_bundle", os_mark, "node") # Slava: use node bundled with the plugin
+    if not os.access(node_path, os.X_OK):
+      os.chmod(node_path, stat.S_IRWXU)
     tern_command = [node_path,  os.path.join(plugin_dir, "node_modules/tern/bin/tern"), "--no-port-file"]
 
 def cleanup():

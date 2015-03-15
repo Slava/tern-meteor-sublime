@@ -119,6 +119,9 @@ def project_dir(fname):
     if os.path.isdir(os.path.join(cur, ".meteor")):
       return cur
     cur = parent
+  # Slava: if not found a .meteor folder, assume we are not even in a Meteor
+  # project
+  return None;
   return dir
 
 def pfile_modified(pfile, view):

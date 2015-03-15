@@ -6,6 +6,8 @@ This is a repository with a package for the Sublime Text 3 editor. By running a
 customized version of Tern.js, this package provides an autocompletion option
 for developing Meteor applications in JavaScript.
 
+Interested in this for a different editor? Check out [this project](https://github.com/slava/tern-meteor).
+
 This package is a fork of the [original `tern_for_sublime`
 package](https://github.com/marijnh/tern_for_sublime). You can find the original
 README in this repository as [Original_README.md](./Original_README.md).

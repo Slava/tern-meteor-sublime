@@ -21,7 +21,10 @@ autocomplete words on the dot character (`.`):
 	`, "auto_complete_triggers": [ { "characters": "<", "selector": "text.html" }, { "characters": ".", "selector": "source.js" } ]`
 
 The second part is to install the package itself. The automatic way is to
-install it from the Package Control (isn't available in the registry yet).
+install it from the Package Control.
+
+1. Install the Package Control from <https://packagecontrol.io/>
+2. Install this package by running "Cmd/Ctrl + Shift + P" -> "Install Package" -> "Meteor Autocomplete (TernJS)"
 
 The manual way is to clone this repo in your Sublime Text 3 editor's "Packages"
 folder. See [this handy page by

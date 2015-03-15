@@ -53,3 +53,9 @@ Put your cursor on a symbol and press the `alt+.` combination to jump to the
 symbol definition. You can jump back to where you started by pressing the
 `alt+,` combination.
 
+
+## Using Meteor with Sublime? Here is more!
+
+Here is a list of recommended Sublime Text packages by other authors you might want to install.
+
+- Gitignored File Excluder - ignores lots and lots of build files from your search queries

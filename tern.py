@@ -395,9 +395,12 @@ def show_argument_hints(pfile, view):
     return render_argument_hints(pfile, view, pfile.cached_arguments[1], argpos)
 
   data = run_command(view, {"type": "type", "preferFunction": True}, call_start, silent=True)
+  if data is None:
+    data = {}
   parsed = data and parse_function_type(data)
-  parsed['url'] = data.get('url', None)
-  parsed['doc'] = data.get('doc', None)
+  if parsed is not None:
+    parsed['url'] = data.get('url', None)
+    parsed['doc'] = data.get('doc', None)
   pfile.cached_arguments = (call_start, parsed)
   render_argument_hints(pfile, view, parsed, argpos)
 

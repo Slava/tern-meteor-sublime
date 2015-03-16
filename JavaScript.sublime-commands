@@ -1,0 +1,6 @@
+[
+  { "caption": "TernJS: Jump To Reference", "command": "tern_jump_to_def", "args": {} },
+  { "caption": "TernJS: Show Documentation For Selection", "command": "tern_show_documentation", "args": {} },
+  { "caption": "TernJS: Get Type For Selection", "command": "tern_show_type", "args": {} },
+  { "caption": "TernJS: Select Variable locally", "command": "tern_select_variable", "args": {} }
+]

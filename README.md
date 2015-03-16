@@ -53,6 +53,24 @@ Put your cursor on a symbol and press the `alt+.` combination to jump to the
 symbol definition. You can jump back to where you started by pressing the
 `alt+,` combination.
 
+Alternatively, you can select the "TernJS: Jump To Definition" item from the
+command palette.
+
+### Look up type of selection
+
+![show type](/img/demo2.gif)
+
+Put your blinking cursor on a symbol or select an expression and run "TernJS:
+Show Type For Selection" from the command palette.
+
+### Look up documentation of selection
+
+Similarly, you can get an API documentation excerpt and a link to the docs if
+you run "TernJS: Show Documentation For Selection" from the command palette.
+
+By default, this plugin provides docs for Meteor APIs, as well as APIs for
+node.js, jQuery, and browser/ES5,6 features.
+
 
 ## Using Meteor with Sublime? Here is more!
 

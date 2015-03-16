@@ -527,12 +527,48 @@ class TernJumpToDef(sublime_plugin.TextCommand):
       else:
         webbrowser.open(url)
 
+class TernJumpToDefCommand(TernJumpToDef):
+  pass
+
+class TernShowType(sublime_plugin.TextCommand):
+  def run(self, edit, **args):
+    data = run_command(self.view, {"type": "type", "depth": 5})
+    if data is None: return
+    type = data.get("type", None)
+
+    if type:
+      sublime.active_window().show_quick_panel([type], None)
+
+class TernShowDocumentation(sublime_plugin.TextCommand):
+  def run(self, edit, **args):
+    data = run_command(self.view, {"type": "type", "depth": 5})
+    if data is None: return
+    type = data.get("type", None)
+    doc = data.get("doc", None)
+    url = data.get("url", None)
+
+    if type or doc:
+      messages = []
+      if doc:
+        split_doc = doc.split('\n')
+        if len(split_doc) < 2:
+          messages.append(doc)
+        else:
+          messages.append(['Documentation'] + split_doc)
+      if type:
+        messages.append(type)
+      if url is not None:
+        messages.append('Go to documentation page')
+      sublime.active_window().show_quick_panel(messages, lambda index: go_to_url(url) if index+1 == len(messages) else None)
+    elif url is not None:
+      go_to_url(url)
+
 class TernJumpBack(sublime_plugin.TextCommand):
   def run(self, edit, **args):
     if len(jump_stack) > 0:
       sublime.active_window().open_file(jump_stack.pop(), sublime.ENCODED_POSITION)
 
-class TernSelectVariable(sublime_plugin.TextCommand):
+class TernSelectVariableCommand(sublime_plugin.TextCommand):
   def run(self, edit, **args):
     data = run_command(self.view, "refs", fragments=False)
     if data is None: return

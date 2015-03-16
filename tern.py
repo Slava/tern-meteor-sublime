@@ -544,8 +544,13 @@ class TernShowDocumentation(sublime_plugin.TextCommand):
     data = run_command(self.view, {"type": "type", "depth": 5})
     if data is None: return
     type = data.get("type", None)
-    doc = data.get("doc", None)
-    url = data.get("url", None)
+    doc = None
+    url = None
+
+    data = run_command(self.view, {"type": "documentation" })
+    if data:
+      doc = data.get("doc", None)
+      url = data.get("url", None)
 
     if type or doc:
       messages = []

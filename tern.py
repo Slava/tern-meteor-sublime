@@ -118,9 +118,11 @@ def project_dir(fname):
     # Slava: the project dir is found by looking at .meteor folderub
     if os.path.isdir(os.path.join(cur, ".meteor")):
       return cur
+    if os.path.isfile(os.path.join(cur, "package.js")):
+      return cur
     cur = parent
-  # Slava: if not found a .meteor folder, assume we are not even in a Meteor
-  # project
+  # Slava: if not found a .meteor/ or a package.js, 
+  # assume we are not even in a Meteor Project
   return None;
   return dir
 

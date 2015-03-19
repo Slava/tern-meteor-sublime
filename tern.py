@@ -8,7 +8,7 @@ python3 = sys.version_info[0] > 2
 is_st2 = int(sublime.version()) < 3000
 
 def is_js_file(view):
-  return view.score_selector(sel_end(view.sel()[0]), "source.js") > 0
+  return view.score_selector(sel_end(view.sel()[0]), "source.js") > 0 or view.score_selector(sel_end(view.sel()[0]), "source.html") > 0
 
 files = {}
 arghints_enabled = False

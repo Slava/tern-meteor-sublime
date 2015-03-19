@@ -8,7 +8,7 @@ python3 = sys.version_info[0] > 2
 is_st2 = int(sublime.version()) < 3000
 
 def is_js_file(view):
-  return view.score_selector(sel_end(view.sel()[0]), "source.js") > 0
+  return view.score_selector(sel_end(view.sel()[0]), "source.js") > 0 or view.score_selector(sel_end(view.sel()[0]), "source.html") > 0
 
 files = {}
 arghints_enabled = False
@@ -627,6 +627,8 @@ def plugin_loaded():
     import stat
     os_mark = platform.system().lower()
     node_path = os.path.join(plugin_dir, "dev_bundle", os_mark, "node") # Slava: use node bundled with the plugin
+    if windows:
+      node_path += ".exe"
     if not os.access(node_path, os.X_OK):
       os.chmod(node_path, stat.S_IRWXU)
     tern_command = [node_path,  os.path.join(plugin_dir, "node_modules/tern/bin/tern"), "--no-port-file"]

@@ -71,6 +71,14 @@ you run "TernJS: Show Documentation For Selection" from the command palette.
 By default, this plugin provides docs for Meteor APIs, as well as APIs for
 node.js, jQuery, and browser/ES5,6 features.
 
+### Jump to the Template declaration file
+
+You can find the `.html` Template file just by looking at its JavaScript
+reference. You can call the same "TernJS: Jump To Definition" command or press
+`alt+.`.
+
+![jump to template](/img/demo3.gif)
+
 
 ## Using Meteor with Sublime? Here is more!
 

@@ -38,9 +38,9 @@ Restart your Sublime Text 3 editor.
 
 ### Autocompletion
 
-This package searches your source tree for the folder called ".meteor". Once it
-is found, the package considers its parent to be the root of your Meteor
-project.
+This package searches your source tree for the folder called ".meteor" or a "package.js" file. 
+Once it is found, the package considers its parent to be the root of your Meteor
+project or package.
 
 In addition to the default Meteor symbols generated out of the documentation,
 you get the autocompetion between files and packages. This package is not smart

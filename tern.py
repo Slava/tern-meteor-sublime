@@ -121,7 +121,7 @@ def project_dir(fname):
     if os.path.isfile(os.path.join(cur, "package.js")):
       return cur
     cur = parent
-  # Slava: if not found a .meteor/ or a package.js, 
+  # Slava: if not found a .meteor/ or a package.js,
   # assume we are not even in a Meteor Project
   return None;
   return dir

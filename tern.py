@@ -384,8 +384,13 @@ def ensure_completions_cached(pfile, view):
 
   completions = []
 
-  client_data = data.get("client")
   server_data = data.get("server")
+  if server_data is None:
+    server_data = {"completions": []}
+  client_data = data.get("client")
+  if client_data is None:
+    client_data = {"completions": [] }
+    client_data["start"] = server_data.get("start", None)
 
   client_completion_tokens = []
   for rec in client_data["completions"]:

@@ -387,19 +387,28 @@ def ensure_completions_cached(pfile, view):
   client_data = data.get("client")
   server_data = data.get("server")
 
+  client_completion_tokens = []
   for rec in client_data["completions"]:
     rec_name = rec.get('name').replace('$', '\\$')
     display_name = rec.get("name") + completion_icon(rec.get("type", None))
     completions.append((display_name + ' [C]', rec_name))
+    client_completion_tokens.append(rec_name)
   for rec in server_data["completions"]:
     rec_name = rec.get('name').replace('$', '\\$')
     display_name = rec.get("name") + completion_icon(rec.get("type", None))
+    unknown_type_name = rec.get("name") + completion_icon('?')
+
     client_tuple = (display_name + ' [C]', rec_name)
+    unknown_type_client_tuple = (unknown_type_name + ' [C]', rec_name)
+
     if client_tuple in completions:
       completions.remove(client_tuple)
       completions.append((display_name + ' [E]', rec_name))
     else:
-      completions.append((display_name + ' [S]', rec_name))
+      if unknown_type_client_tuple in completions:
+        completions.remove(unknown_type_client_tuple)
+      if (completion_icon(rec.get("type", None)) is '(?)') or (rec_name not in client_completion_tokens):
+        completions.append((display_name + ' [S]', rec_name))
 
   pfile.cached_completions = (client_data["start"], view.substr(sublime.Region(client_data["start"], pos)), completions)
   return (completions, True)

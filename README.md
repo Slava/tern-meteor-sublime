@@ -85,3 +85,9 @@ reference. You can call the same "TernJS: Jump To Definition" command or press
 Here is a list of recommended Sublime Text packages by other authors you might want to install.
 
 - Gitignored File Excluder - ignores lots and lots of build files from your search queries
+
+
+## Background
+
+- https://www.youtube.com/watch?v=OxzdNZCxPjk
+- https://www.youtube.com/watch?v=CcPZ56t8x4I

@@ -79,6 +79,13 @@ reference. You can call the same "TernJS: Jump To Definition" command or press
 
 ![jump to template](/img/demo3.gif)
 
+### Using Meteor Packages from Atmosphere
+
+This plugin will find and analyze all 3rd party packages your app uses if you
+run your app with the `meteor` command at least once. Every time you update your
+used packages, you would need to trigger the re-reading of the
+`.meteor/versions` file (either by restarting the Tern server or restarting
+Sublime or editing and saving the versions file).
 
 ## Using Meteor with Sublime? Here is more!
 

@@ -58,8 +58,23 @@ class Listeners(sublime_plugin.EventListener):
 
     if not fresh:
       completions = [c for c in completions if c[1].startswith(prefix)]
+    completions = align_completions(completions)
+
     return completions
 
+def align(s, size):
+    return s + (' ' * (size - len(s)))
+
+# align the completion strings
+# asdfasdf       (number) [C]
+# asdsf          (fn)     [C]
+# asdfasdfsss    (?)      [C]
+# asdfasdfffffff (fn)     [C]
+def align_completions(completions):
+    table = [c[0].split() for c in completions]
+    widths = [max(map(lambda s: len(s), column)) for column in zip(*table)]
+    columns = [[align(word, widths[idx]) for word in column] for idx, column in enumerate(zip(*table))]
+    return [(' '.join(row), completions[idx][1]) for idx, row in enumerate(zip(*columns))]
 
 class ProjectFile(object):
   def __init__(self, name, view, project):
@@ -121,7 +136,7 @@ def project_dir(fname):
     if os.path.isfile(os.path.join(cur, "package.js")):
       return cur
     cur = parent
-  # Slava: if not found a .meteor/ or a package.js, 
+  # Slava: if not found a .meteor/ or a package.js,
   # assume we are not even in a Meteor Project
   return None;
   return dir
@@ -368,10 +383,39 @@ def ensure_completions_cached(pfile, view):
   if data is None: return (None, False)
 
   completions = []
-  for rec in data["completions"]:
+
+  server_data = data.get("server")
+  if server_data is None:
+    server_data = {"completions": []}
+  client_data = data.get("client")
+  if client_data is None:
+    client_data = {"completions": [] }
+    client_data["start"] = server_data.get("start", None)
+
+  client_completion_tokens = []
+  for rec in client_data["completions"]:
     rec_name = rec.get('name').replace('$', '\\$')
-    completions.append((rec.get("name") + completion_icon(rec.get("type", None)), rec_name))
-  pfile.cached_completions = (data["start"], view.substr(sublime.Region(data["start"], pos)), completions)
+    display_name = rec.get("name") + completion_icon(rec.get("type", None))
+    completions.append((display_name + ' [C]', rec_name))
+    client_completion_tokens.append(rec_name)
+  for rec in server_data["completions"]:
+    rec_name = rec.get('name').replace('$', '\\$')
+    display_name = rec.get("name") + completion_icon(rec.get("type", None))
+    unknown_type_name = rec.get("name") + completion_icon('?')
+
+    client_tuple = (display_name + ' [C]', rec_name)
+    unknown_type_client_tuple = (unknown_type_name + ' [C]', rec_name)
+
+    if client_tuple in completions:
+      completions.remove(client_tuple)
+      completions.append((display_name + ' [E]', rec_name))
+    else:
+      if unknown_type_client_tuple in completions:
+        completions.remove(unknown_type_client_tuple)
+      if (completion_icon(rec.get("type", None)) is '(?)') or (rec_name not in client_completion_tokens):
+        completions.append((display_name + ' [S]', rec_name))
+
+  pfile.cached_completions = (client_data["start"], view.substr(sublime.Region(client_data["start"], pos)), completions)
   return (completions, True)
 
 def locate_call(view):

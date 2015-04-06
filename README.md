@@ -87,6 +87,8 @@ used packages, you would need to trigger the re-reading of the
 `.meteor/versions` file (either by restarting the Tern server or restarting
 Sublime or editing and saving the versions file).
 
+![use Atmosphere packages](/img/demo4.gif)
+
 ## Using Meteor with Sublime? Here is more!
 
 Here is a list of recommended Sublime Text packages by other authors you might want to install.

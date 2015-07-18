@@ -466,14 +466,16 @@ def render_argument_hints(pfile, view, ftype, argpos):
       pfile.showing_arguments = False
     return
 
-  msg = ftype["name"] + "("
-  i = 0
-  for name, type in ftype["args"]:
-    if i > 0: msg += ", "
-    if i == argpos: msg += "*"
-    msg += name + ("" if type == "?" else ": " + type)
-    i += 1
-  msg += ")"
+  msg = ''
+  if 'name' in ftype and 'args' in ftype:
+    msg = ftype["name"] + "("
+    i = 0
+    for name, type in ftype["args"]:
+      if i > 0: msg += ", "
+      if i == argpos: msg += "*"
+      msg += name + ("" if type == "?" else ": " + type)
+      i += 1
+    msg += ")"
   if ftype["retval"] is not None:
     msg += " -> " + ftype["retval"]
 
